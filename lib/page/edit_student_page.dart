@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sqflite/database/db.dart';
 
 class EditStudentPage extends StatefulWidget {
-  int rollno;
-  EditStudentPage({Key? key, required this.rollno}) : super(key: key);
+  int id;
+  EditStudentPage({Key? key, required this.id}) : super(key: key);
 
   @override
   State<EditStudentPage> createState() => _EditStudentPage();
@@ -22,14 +22,14 @@ class _EditStudentPage extends State<EditStudentPage> {
 
     Future.delayed(const Duration(milliseconds: 500), () async {
       var data = await mydb.getStudent(
-          widget.rollno); //widget.rollno is passed paramater to this class
+          widget.id); //widget.rollno is passed paramater to this class
       if (data != null) {
         name.text = data["name"];
         rollno.text = data["roll_no"].toString();
         address.text = data["address"];
         setState(() {});
       } else {
-        print("No any data with roll no: " + widget.rollno.toString());
+        print("No any data with roll no: " + widget.id.toString());
       }
     });
     super.initState();
@@ -66,8 +66,8 @@ class _EditStudentPage extends State<EditStudentPage> {
             ElevatedButton(
               onPressed: () {
                 mydb.db.rawInsert(
-                    "UPDATE students SET name = ?, roll_no = ?, address = ? WHERE roll_no = ?",
-                    [name.text, rollno.text, address.text, widget.rollno]);
+                    "UPDATE students SET name = ?, roll_no = ?, address = ? WHERE id = ?",
+                    [name.text, rollno.text, address.text, widget.id]);
                 //update table with roll no.
                 ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("Student Data Updated")));

@@ -59,7 +59,7 @@ class _ListStudentsPage extends State<ListStudentsPage> {
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
                                           return EditStudentPage(
-                                            rollno: stuone["roll_no"],
+                                            id: stuone["id"],
                                           );
                                         },
                                       ),
@@ -69,8 +69,8 @@ class _ListStudentsPage extends State<ListStudentsPage> {
                               IconButton(
                                 onPressed: () async {
                                   await mydb.db.rawDelete(
-                                      "DELETE FROM students WHERE roll_no = ?",
-                                      [stuone["roll_no"]]);
+                                      "DELETE FROM students WHERE id = ?",
+                                      [stuone["id"]]);
                                   //delete student data with roll no.
                                   print("Data Deleted");
                                   ScaffoldMessenger.of(context).showSnackBar(

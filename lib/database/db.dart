@@ -17,7 +17,7 @@ class MyDb {
       // When creating the db, create the table
       await db.execute('''
                   CREATE TABLE IF NOT EXISTS students( 
-                        id primary key,
+                        id integer primary key autoincrement,
                         name varchar(255) not null,
                         roll_no int not null,
                         address varchar(255) not null
@@ -31,9 +31,9 @@ class MyDb {
     });
   }
 
-  Future<Map<dynamic, dynamic>?> getStudent(int rollno) async {
+  Future<Map<dynamic, dynamic>?> getStudent(int id) async {
     List<Map> maps =
-        await db.query('students', where: 'roll_no = ?', whereArgs: [rollno]);
+        await db.query('students', where: 'id = ?', whereArgs: [id]);
     //getting student data with roll no.
     if (maps.isNotEmpty) {
       return maps.first;
